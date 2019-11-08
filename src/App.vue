@@ -1,16 +1,17 @@
 <template>
-  <div id="app">
-   <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+  <div>
     <div class="mockCard">
     <div class="chip"> </div>
         <div class="visaLogo"> </div>
-    <div class="cardNum"> 
-    <span v-if="cardNumber">
-    {{ cardNumber }}
-    </span>
-    <span v-else>
-    **** **** **** **** 
-    </span>
+    <div class="cardNum" for="cardNumber" ref="cardNumber">
+     <span v-for="(n, $index) in mask" :key="$index">
+     <span v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
+     *
+     </span>
+     <span :key="$index" v-else-if="cardNumber.length > $index">
+     {{cardNumber[$index]}}
+     </span>
+     </span>
     </div>
     <div class="ch">
       <label for="card">Card Holder </label>
@@ -32,7 +33,7 @@
   <div class="infoBox">    
     Card Number:
     <br/>
-    <input class="textBoxes" v-model="cardNumber" placeholder="Card Number">
+    <input class="textBoxes" placeholder="Card Number" maxlength="16" v-mask="chooseCardMask" for="cardNumber" v-model="cardNumber">
     <br/>
     <br/>
     Cardholder Name:
@@ -84,11 +85,25 @@ export default {
  name: 'app',
  data: () => ({
    cardName: null,
-   cardNumber: null,
+   mask: "#### #### #### #####",
+   cardNumber: "",
+   cardNumberTemp: "",
  }),
+   mounted() {
+     this.cardNumberTemp = this.mask;
+     document.getElementById("cardNumber").focus();
+ },
  components: {
-   GitLink
- } 
+ GitLink
+ },
+ computed: {
+  assignFunc: function (){
+    return this.cardNumber.substring(0,4) + ' #### #### ' + this.cardNumber.substring(12,16);
+  },
+  chooseCardMask: function () {
+    return this.mask;
+  },
+ }
 }
 </script>
 
