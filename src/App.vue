@@ -4,10 +4,24 @@
     <div class="mockCard">
     <div class="chip"> </div>
         <div class="visaLogo"> </div>
-    <div class="cardNum"> **** **** **** **** </div>
+    <div class="cardNum"> 
+    <span v-if="cardNumber">
+    {{ cardNumber }}
+    </span>
+    <span v-else>
+    **** **** **** **** 
+    </span>
+    </div>
     <div class="ch">
       <label for="card">Card Holder </label>
-      <div class="chn">Full Name </div>
+      <div class="chn">
+        <span v-if="cardName">
+         {{ cardName }}
+        </span>
+        <span v-else>
+          Full Name
+        </span>
+      </div>
         </div>
         <div class="exp">
       <label for="expire">Expires</label>
@@ -18,12 +32,12 @@
   <div class="infoBox">    
     Card Number:
     <br/>
-    <input class="textBoxes">
+    <input class="textBoxes" v-model="cardNumber" placeholder="Card Number">
     <br/>
     <br/>
     Cardholder Name:
     <br/>
-    <input id="cardName" class="textBoxes" v-model="cardName"> 
+    <input class="textBoxes" v-model="cardName" placeholder="Full Name"> 
     <br/>
     <br/>
     <div class="expTxt"> Expiration Date: </div>
@@ -59,24 +73,29 @@
     <br/>
     <button class="submitButton" value="submit">SUBMIT</button>
   </div>
-    <NewComponent/>
+    <GitLink/>
   </div>
 </template>
 
 <script>
-import NewComponent from './components/NewComponent.vue'
+import GitLink from './components/GitHubLink.vue'
 
 export default {
  name: 'app',
+ data: () => ({
+   cardName: null,
+   cardNumber: null,
+ }),
  components: {
-	NewComponent	
-	} 
+   GitLink
+ } 
 }
 </script>
 
 <style>
 * {
   box-sizing: border-box;
+  position: relative;
 }
 
 body {
