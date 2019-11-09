@@ -2,15 +2,15 @@
   <div>
     <div class="mockCard">
     <div class="chip"> </div>
-        <div class="visaLogo"> </div>
+        <div class="cardLogo"> </div>
      <label class="cardNum" for="cardNumber" ref="cardNumber" >
      <span v-for="(n, $index) in cardMask" :key="$index">
-     <div  v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
+     <span  v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
      *
-     </div>
-     <div :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
+     </span>
+     <span :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
      {{cardNumber[$index]}}
-     </div>
+     </span>
      <span :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1" >
      {{n}}
      </span>
@@ -91,6 +91,7 @@ export default {
    cardMask: "#### #### #### ####",
    cardNumber: "",
    cardNumberTemp: "",
+   backgroundNumber:  Math.floor(Math.random()* 10 + 1),
  }),
    mounted() {
      this.cardNumberTemp = this.cardMask;
@@ -144,7 +145,7 @@ body {
 
 .mockCard {
   z-index: 2;
-  background: url(https://images4.alphacoders.com/982/982374.jpg);
+  background: url(https://github.com/mpwhitacre/CreditCardMockUpVue/blob/development/src/assets/982374.jpg?raw=true);
   background-size: cover;
   border-radius: 10px;
   max-width: 500px;
@@ -183,7 +184,7 @@ body {
 }
 
 .card-info-cvv {
-  width: auto;
+  width: 20%;
   float: right;
 }
 
@@ -262,7 +263,7 @@ body {
   border-radius: 3px;
 }
 
-.mockCard .visaLogo {
+.mockCard .cardLogo {
   background: url(https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/visa.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -273,7 +274,7 @@ body {
   right: 5%;
 }
 
-.mockCard .visaLogo:hover {
+.mockCard .cardLogo:hover {
   transition: .25s ease-in-out;
   cursor: pointer;
   border: 1px solid blue;
@@ -311,7 +312,7 @@ body {
 .infoBox .cvvTxt {
   margin-left: auto;
   float: right;
-  margin-right: 30%;
+  margin-right: 0;
 }
 </style>
 
