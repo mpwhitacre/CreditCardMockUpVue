@@ -3,16 +3,19 @@
     <div class="mockCard">
     <div class="chip"> </div>
         <div class="visaLogo"> </div>
-    <div class="cardNum" for="cardNumber" ref="cardNumber">
-     <span v-for="(n, $index) in mask" :key="$index">
-     <span v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
+     <label class="cardNum" for="cardNumber" ref="cardNumber" >
+     <span v-for="(n, $index) in cardMask" :key="$index">
+     <div  v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
      *
-     </span>
-     <span :key="$index" v-else-if="cardNumber.length > $index">
+     </div>
+     <div :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
      {{cardNumber[$index]}}
+     </div>
+     <span :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1" >
+     {{n}}
      </span>
      </span>
-    </div>
+     </label>
     <div class="ch">
       <label for="card">Card Holder </label>
       <div class="chn">
@@ -33,7 +36,7 @@
   <div class="infoBox">    
     Card Number:
     <br/>
-    <input class="textBoxes" placeholder="Card Number" maxlength="16" v-mask="chooseCardMask" for="cardNumber" v-model="cardNumber">
+    <input type="text" class="textBoxes" placeholder="Card Number" v-mask="chooseCardMask" v-model="cardNumber">
     <br/>
     <br/>
     Cardholder Name:
@@ -85,23 +88,19 @@ export default {
  name: 'app',
  data: () => ({
    cardName: null,
-   mask: "#### #### #### #####",
+   cardMask: "#### #### #### ####",
    cardNumber: "",
    cardNumberTemp: "",
  }),
    mounted() {
-     this.cardNumberTemp = this.mask;
-     document.getElementById("cardNumber").focus();
+     this.cardNumberTemp = this.cardMask;
  },
  components: {
  GitLink
  },
  computed: {
-  assignFunc: function (){
-    return this.cardNumber.substring(0,4) + ' #### #### ' + this.cardNumber.substring(12,16);
-  },
   chooseCardMask: function () {
-    return this.mask;
+    return this.cardMask;
   },
  }
 }
@@ -154,6 +153,7 @@ body {
   height: 250px;
   color: white;
   font-weight: bold;
+  text-shadow: 1px 1px 0 #000,1px 1px 0 #000,1px 1px 0 #000,1px 1px 0 #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,18 +227,21 @@ body {
   font-size: 20px;
 }
 
-
-
 .mockCard .cardNum {
   position: absolute;
   top: 35%;
+  transition: .25s ease-in-out;
 } 
 
 .mockCard .cardNum:hover {
-  transition: .25s ease-in-out;
   cursor: pointer;
   border: 1px solid blue;
   border-radius: 3px;
+
+}
+
+.mockCard .cardNum:active {
+
 }
 
 .mockCard .chip {
