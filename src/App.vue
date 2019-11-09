@@ -149,7 +149,7 @@ body {
   z-index: 2;
   width: 100%;
   border-radius: 10px;
-  width: 500px;
+  width: 450px;
   padding: 10px;
   margin: auto;
   height: 250px;
