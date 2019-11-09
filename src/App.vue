@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="mockCard">
+    <img v-bind:src="'https://github.com/mpwhitacre/CreditCardMockUpVue/blob/development/src/assets/' + backgroundNumber + '.jpg?raw=true'">
     <div class="chip"> </div>
         <div class="cardLogo"> </div>
      <label class="cardNum" for="cardNumber" ref="cardNumber" >
@@ -30,7 +31,7 @@
         <div class="exp">
       <label for="expire">Expires</label>
       <div class="expd">XX/XX</div>
-        </div>
+      </div>
 
   </div>
   <div class="infoBox">    
@@ -91,7 +92,7 @@ export default {
    cardMask: "#### #### #### ####",
    cardNumber: "",
    cardNumberTemp: "",
-   backgroundNumber:  Math.floor(Math.random()* 10 + 1),
+   backgroundNumber:  Math.floor(Math.random()* 2 + 1),
  }),
    mounted() {
      this.cardNumberTemp = this.cardMask;
@@ -144,11 +145,11 @@ body {
 }
 
 .mockCard {
+  position: relative;
   z-index: 2;
-  background: url(https://github.com/mpwhitacre/CreditCardMockUpVue/blob/development/src/assets/982374.jpg?raw=true);
-  background-size: cover;
+  width: 100%;
   border-radius: 10px;
-  max-width: 500px;
+  width: 500px;
   padding: 10px;
   margin: auto;
   height: 250px;
@@ -162,8 +163,22 @@ body {
   box-shadow: 0 30px 60px 0 rgba(90, 116, 148, .4);
 }
 
+.mockCard img {
+    position: absolute;
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    display: block;
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
 .textBoxes {
   width:100%;
+  max-width: 500px;
 }
 
 .card-info-selector {
