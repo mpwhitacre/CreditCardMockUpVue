@@ -76,7 +76,8 @@
     <br/>
     <br/>
     <br/>
-    <button class="submitButton" value="submit">SUBMIT</button>
+    <button class="submitButton" @click="callRestService"  value="submit">SUBMIT</button>
+    <h3> {{ response }} </h3>
   </div>
     <GitLink/>
   </div>
@@ -92,9 +93,9 @@ export default {
    cardMask: "#### #### #### ####",
    cardNumber: "",
    cardNumberTemp: "",
-   backgroundNumber:  Math.floor(Math.random()* 2 + 1),
- }),
-   mounted() {
+   backgroundNumber:  Math.floor(Math.random()* 5 + 1),
+ })
+  mounted() {
      this.cardNumberTemp = this.cardMask;
  },
  components: {
@@ -174,6 +175,7 @@ body {
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
+    opacity: .95;
 }
 
 .textBoxes {
@@ -245,7 +247,7 @@ body {
 
 .mockCard .cardNum {
   position: absolute;
-  top: 35%;
+  top: 40%;
   transition: .25s ease-in-out;
 } 
 
