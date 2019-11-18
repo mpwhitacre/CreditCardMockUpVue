@@ -4,19 +4,19 @@
     <img v-bind:src="'https://github.com/mpwhitacre/CreditCardMockUpVue/blob/development/src/assets/' + backgroundNumber + '.jpg?raw=true'">
     <div class="chip"> </div>
         <div class="cardLogo"> </div>
-     <label class="cardNum" for="cardNumber" ref="cardNumber" >
-     <span v-for="(n, $index) in cardMask" :key="$index">
-     <span  v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
-     *
-     </span>
-     <span :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
-     {{cardNumber[$index]}}
-     </span>
-     <span :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1" >
-     {{n}}
-     </span>
-     </span>
-     </label>
+      <label class="cardNum" for="cardNumber" ref="cardNumber" >
+      <span v-for="(n, $index) in cardMask" :key="$index">
+      <span  v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">
+      *
+      </span>
+      <span :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
+      {{cardNumber[$index]}}
+      </span>
+      <span :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1" >
+      {{n}}
+      </span>
+      </span>
+      </label>
     <div class="ch">
       <label for="card">Card Holder </label>
       <div class="chn">
@@ -30,7 +30,13 @@
         </div>
         <div class="exp">
       <label for="expire">Expires</label>
-      <div class="expd">XX/XX</div>
+      <div class="expd">
+        <span v-if="cardMonth">{{ cardMonth }}</span>
+        <span v-else>MM</span>
+        <span>/</span>
+        <span v-if="cardYear">{{String(cardYear).slice(2,4)}}</span>
+        <span v-else>YY</span>
+      </div>
       </div>
 
   </div>
@@ -48,7 +54,7 @@
     <div class="expTxt"> Expiration Date: </div>
     <div class="cvvTxt"> CVV: </div>
     <br/>
-    <select class="card-info-selector" id="Month" name="Month">
+    <select class="card-info-selector" v-model="cardMonth">
       <option value="">Month</option>
       <option value="01">01</option>
       <option value="02">02</option>
@@ -63,7 +69,7 @@
       <option value="11">11</option>
       <option value="12">12</option>
     </select>
-      <select class="card-info-selector" id="Year" name="Year">
+      <select class="card-info-selector" v-model="cardYear">
       <option value="">Year</option>
       <option value="2019">2019</option>
       <option value="2020">2020</option>
@@ -89,7 +95,9 @@ export default {
    cardMask: "#### #### #### ####",
    cardNumber: "",
    cardNumberTemp: "",
-   backgroundNumber:  Math.floor(Math.random()* 2 + 1),
+   backgroundNumber:  Math.floor(Math.random()* 5 + 1),
+   cardMonth: "",
+   cardYear: ""
  }),
    mounted() {
      this.cardNumberTemp = this.cardMask;
@@ -108,16 +116,6 @@ export default {
   position: relative;
 }
 
-body {
-  background: linear-gradient(to bottom right,#cfd0fa,#30c7c7, #01048c);
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  display: flex;
-  padding: 50px 15px;
-  display: block;
-  font-family: 'Actor';font-size: 22px;
-  font-size: 30px;
-}
 
 .infoBox {
   position: relative;
@@ -172,7 +170,9 @@ body {
 
 .textBoxes {
   width:100%;
-  max-width: 500px;
+  border-radius: 5px;
+  border-color: black;
+  border: 1px solid;
 }
 
 .card-info-selector {
@@ -195,6 +195,9 @@ body {
 .card-info-cvv {
   width: 20%;
   float: right;
+  border-radius: 5px;
+  border-color: black;
+  border: 1px solid;
 }
 
 .mockCard .ch {
@@ -234,7 +237,7 @@ body {
 }
 
 .mockCard .expd {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .mockCard .cardNum {
@@ -248,10 +251,6 @@ body {
   cursor: pointer;
   border: 1px solid blue;
   border-radius: 3px;
-
-}
-
-.mockCard .cardNum:active {
 
 }
 
