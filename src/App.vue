@@ -1,8 +1,12 @@
 <template>
+  <v-app>
   <div>
        <CreditCard/>
        <GitLink/>
+       <v-btn text small color="primary"> test </v-btn>
+       <router-view></router-view>
   </div>
+  </v-app>
 </template>
 
 <script>
