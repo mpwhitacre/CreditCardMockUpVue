@@ -78,11 +78,11 @@
       <option value="2023">2023</option>
       <option value="2024">2024</option>
     </select>
-    <input class="card-info-cvv">
+    <input class="card-info-cvv" v-model="cvv">
     <br/>
     <br/>
     <br/>
-    <button class="submitButton" value="submit">SUBMIT</button>
+    <button class="submitButton" value="submit" @click="submitCard()">SUBMIT</button>
     </div>
     </div>
 </template>
@@ -97,7 +97,8 @@ export default {
    cardNumberTemp: "",
    backgroundNumber:  Math.floor(Math.random()* 5 + 1),
    cardMonth: "",
-   cardYear: ""
+   cardYear: "",
+   cvv: ""
  }),
    mounted() {
      this.cardNumberTemp = this.cardMask;
@@ -105,8 +106,20 @@ export default {
  computed: {
   chooseCardMask: function () {
     return this.cardMask;
+   },
+ },
+  methods: {
+    submitCard: function() {
+      const requestObject = { 'CardHolderName': this.cardName, 'cardNumber': this.cardNumber, 'expirationMonth': this.cardMonth, 'expirationYear': this.cardYear, 'cvv': this.cvv };
+      fetch('/api/add', {
+        method: 'post',
+        body: JSON.stringify(requestObject),
+        headers: {
+          'Content-Type':'application/json'
+        }
+      })
+    }
   },
- }
 }
 </script>
 
