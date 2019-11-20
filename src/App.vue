@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import CreditCard from './components/CreditCard/CreditCard.vue'
 import GitLink from './components/Github/GitHubLink.vue'
 import TopBar from './components/TopBar/TopBar.vue'
 
@@ -17,7 +16,6 @@ import TopBar from './components/TopBar/TopBar.vue'
 export default {
  name: 'app',
  components: {
-   CreditCard,
    GitLink,
    TopBar
  }

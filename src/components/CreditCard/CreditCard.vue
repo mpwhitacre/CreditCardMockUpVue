@@ -110,7 +110,7 @@ export default {
  },
   methods: {
     submitCard: function() {
-      const requestObject = { 'CardHolderName': this.cardName, 'cardNumber': this.cardNumber, 'expirationMonth': this.cardMonth, 'expirationYear': this.cardYear, 'cvv': this.cvv };
+      const requestObject = { 'cardHolderName': this.cardName, 'cardNumber': this.cardNumber, 'expirationMonth': this.cardMonth, 'expirationYear': this.cardYear, 'cvv': this.cvv };
       fetch('/api/add', {
         method: 'post',
         body: JSON.stringify(requestObject),
